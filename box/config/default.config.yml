@@ -8,9 +8,9 @@ vagrant_gui: false
 
 # If you need to run multiple instances of Drupal VM, set a unique hostname,
 # machine name, and IP address for each instance.
-vagrant_hostname: drupalvm.dev
-vagrant_machine_name: drupalvm
-vagrant_ip: 192.168.88.88
+vagrant_hostname: docvacuum-test.dev
+vagrant_machine_name: docvacuum-test
+vagrant_ip: 192.168.88.90
 
 # Allow Drupal VM to be accessed via a public network interface on your host.
 # Vagrant boxes are insecure by default, so be careful. You've been warned!
@@ -24,8 +24,8 @@ vagrant_synced_folders:
   # The first synced folder will be used for the default Drupal installation, if
   # any of the build_* settings are 'true'. By default the folder is set to
   # the drupal-vm folder.
-  - local_path: .
-    destination: /var/www/drupalvm
+  - local_path: ../apps
+    destination: /var/www/apps
     type: nfs
     create: true
 
@@ -68,7 +68,7 @@ drupal_composer_project_options: "--prefer-dist --stability dev --no-interaction
 
 # Set this to 'false' if you don't need to install drupal (using the drupal_*
 # settings below), but instead copy down a database (e.g. using drush sql-sync).
-drupal_install_site: true
+drupal_install_site: false
 
 # Required Drupal settings.
 drupal_core_path: "{{ drupal_composer_install_dir }}/web"
@@ -80,10 +80,10 @@ drupal_db_name: drupal
 # Settings for installing a Drupal site if 'install_site:' is 'true'.
 drupal_major_version: 8
 drupal_domain: "{{ vagrant_hostname }}"
-drupal_site_name: "Drupal"
-drupal_install_profile: standard
+drupal_site_name: "docvacuum"
+drupal_install_profile: minimal
 drupal_enable_modules: [ 'devel' ]
-drupal_account_name: admin
+drupal_account_name: admins
 drupal_account_pass: admin
 
 # Additional arguments or options to pass to `drush site-install`.
@@ -196,7 +196,7 @@ postgresql_users:
 installed_extras:
   - adminer
   # - blackfire
-  # - drupalconsole
+  - drupalconsole
   - drush
   # - elasticsearch
   # - java
